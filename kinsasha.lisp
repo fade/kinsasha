@@ -27,8 +27,8 @@
 (defun make-serve ()
   (ucw::make-backend
    :httpd
-   :host "localhost"
-   :port 9090))
+;;   :host "coruscant.deepsky.com"
+   :port 9999))
 
 (defclass knight-server (standard-server)
   ())
@@ -71,5 +71,5 @@
 
 (defmethod render ((self ktour-component))
   (<:H1 "Knight's Tour Solutions Incorporated!")
-  (<:code (format (html-stream (context.response *context*))
-		  (print-board (knights-tour)))))
+  (<:pre (format (html-stream (context.response *context*))
+		 (print-board (knights-tour)))))
