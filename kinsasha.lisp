@@ -44,7 +44,7 @@
   ()
   (:default-initargs
    :url-prefix "/"
-    :www-roots (list (cons "" #P "/home/fade/SourceCode/lisp/kinsasha/"))))
+    :static-roots (list (cons "" #P "/home/fade/SourceCode/lisp/kinsasha/"))))
 
 (defparameter *ktour-application*
   (make-instance 'ktour-application))
@@ -71,6 +71,7 @@
   ())
 
 (defmethod render ((self ktour-component))
+  (ucw-core::remove-expired-sessions *ktour-application*)
   (<:H1 "Knight's Tour Solutions Incorporated!")
   (<:pre (format (html-stream (context.response *context*))
 		  (print-board (knights-tour)))))
