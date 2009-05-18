@@ -96,9 +96,10 @@
 
 (defmethod render ((self ktour-component-board))
   (<:H1 "Knight's Tour Solutions Inc.!")
-  (let* ((bboard (knights-tour)))
+  (let* ((bboard (knights-tour))
+	 (width (* (array-dimension bboard 1) 100)))
     (ucw-core::remove-expired-sessions *ktour-application*)
-    (<:table :width 800
+    (<:table :width width
 	     (<:td (dotimes (i (array-dimension bboard 0) nil)
 		     (<:tr
 		      (dotimes (j (array-dimension bboard 1))

@@ -10,6 +10,9 @@
     :version "0.0"
     :author "B.C.J.O"
     :license "junkyard license v19.4 or greater"
+    :serial t
     :depends-on (#:ucw
-		 #:ktour)
-    :components ((:file "kinsasha")))
+		 #:ktour
+		 #:vecto)
+    :components ((:file "tile-builder")
+		 (:file "kinsasha")))
