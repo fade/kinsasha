@@ -26,7 +26,8 @@
 
 (defun make-serve ()
   (ucw::make-backend
-   :iolib
+   ;:iolib
+   :httpd
    :host "0.0.0.0"
    :port 9999))
 
@@ -105,8 +106,24 @@
 		      (dotimes (j (array-dimension bboard 1))
 			(if (= (mod (+ i j) 2) 0)
 			    (<:td (<:img :width 100 :src (giver bboard i j :colour t)))
-			    (<:td (<:img :width 100 :src (giver bboard i j)))
-			    ))))))))
+			    (<:td (<:img :width 100 :src (giver bboard i j)))))))))))
+
+
+;; (defmethod render ((self ktour-component-board))
+;;   (<:H1 "Knight's Tour Solutions Inc.!")
+;;   (let* ((bboard (knights-tour))
+;; 	 (width (* (array-dimension bboard 1) 100)))
+;;     (ucw-core::remove-expired-sessions *ktour-application*)
+    
+;;     (<:center
+;;      (<:table :width width
+;; 	     (<:td (dotimes (i (array-dimension bboard 0) nil)
+;; 		     (<:tr
+;; 		      (dotimes (j (array-dimension bboard 1))
+;; 			(if (= (mod (+ i j) 2) 0)
+;; 			    (<:td (<:img :width 100 :src (giver bboard i j :colour t)))
+;; 			    (<:td (<:img :width 100 :src (giver bboard i j)))
+;; 			    )))))))))
 
 ;; (defmethod render ((self ktour-component-board))
 ;;   (<:H1 "Knight's Tour Solutions Inc.!")
