@@ -97,6 +97,8 @@
 
 (defmethod render ((self ktour-component-board))
   (<:H1 "Knight's Tour Solutions Inc.!")
+  (<:H3 "Press 'r' to reload board.")
+  (<:p "a new board will be generated on every reload")
   (let* ((bboard (knights-tour))
 	 (width (* (array-dimension bboard 1) 100)))
     (ucw-core::remove-expired-sessions *ktour-application*)
