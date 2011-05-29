@@ -1,14 +1,13 @@
+;;; "tbuilder" goes here. Hacks and glory await!
+;;;; tbuilder.lisp
+
+(in-package #:tbuilder)
+
 ;;;; -*- Mode: Lisp; Syntax: ANSI-Common-Lisp; Base: 10 -*-
 ;;;; -*- vtest.lisp -*-
 ;;;;
 ;;; this code generates the png tiles used to display numbered
 ;;; chessboard cells for the kinsasha knight's tour solver
-
-(defpackage #:tile-builder
-  (:use #:cl
-	#:vecto))
-
-(in-package #:tile-builder)
 
 ;;; vecto examples, for my own edification.
 
@@ -41,7 +40,7 @@
 
 (defun radiant-lambda (file)
   (with-canvas (:width 90 :height 90)
-    (let ((font (get-font "/usr/share/root/fonts/times.ttf"))
+    (let ((font (get-font "/usr/share/fonts/truetype/msttcorefonts/times.ttf"))
           (step (/ pi 7)))
       (set-font font 40)
       (translate 45 45)
@@ -58,35 +57,6 @@
           (line-to 40 0)
           (stroke)))
       (save-png file))))
-
-;; /examples
-
-(defun makesquare (s ch &key colour coords (filename nil))
-  (with-canvas (:width s :height s)
-    (let ((font (get-font "/usr/share/root/fonts/times.ttf")))
-      (if colour
-	  (set-rgb-fill 1.0 0.0 0.0)  ;; red
-	  (set-rgb-fill 0.0 0.0 0.0)) ;; black
-      (if coords
-	  (rounded-rectangle (first coords) (second coords)  s s 10 10)
-	  (rounded-rectangle 0 0 s s 10 10))
-      
-      (fill-path)
-      (set-font font 40)
-      (set-rgb-fill 1.0 1.0 1.0)
-;;;       (draw-centered-string 50 40 (format nil "~A" ch))
-      (let ((xspot (round (/ s 2)))
-	    (yspot (round (* s .4))))
-	(draw-centered-string xspot yspot (format nil "~A" ch)))
-      (if filename
-	  (save-png filename)))))
-
-(defun display-board (arr cell size &key (size-xy 8))
-  (let* ((board (* size size-xy)) ;; board size in pixels
-	 (barray arr)) 
-    (with-canvas (:width board :height board)
-      (dotimes (i (array-dimension barray 0) nil))
-      )))
 
 (defun star-clipping (file)
   (with-canvas (:width 800 :height 800)
@@ -110,4 +80,48 @@
               repeat 20 do
               (circle i)))
       (save-png file))))
+
+;; /examples
+
+(defun makesquare (s ch &key colour coords (filename nil))
+  (with-canvas (:width s :height s)
+    (let ((font (get-font "/usr/local/share/fonts/e/Envy_Code_R.ttf")))
+      (if colour
+	  (set-rgb-fill 1.0 0.0 0.0)  ;; red
+	  (set-rgb-fill 0.0 0.0 0.0)) ;; black
+      (if coords
+	  (rounded-rectangle (first coords) (second coords)  s s 10 10)
+	  (rounded-rectangle 0 0 s s 10 10))
+      
+      (fill-path)
+      (set-font font 40)
+      (set-rgb-fill 1.0 1.0 1.0)
+;;;       (draw-centered-string 50 40 (format nil "~A" ch))
+      (let ((xspot (round (/ s 2)))
+	    (yspot (round (* s .4))))
+	(draw-centered-string xspot yspot (format nil "~A" ch)))
+      (if filename
+	  (save-png filename)))))
+
+(defun on-the-tiles (range imagedir &key (tsize 100))
+  (let ((*default-pathname-defaults* (truename imagedir)))
+    (loop for i from 1 to range
+	  for num = (format nil "~A" i)
+	  for rname = (merge-pathnames (format nil "~Ar.png" i))
+	  for bname = (merge-pathnames (format nil "~Ab.png" i))
+	  :do
+	  (progn
+	    (makesquare tsize i :colour t :filename rname )
+	    (makesquare tsize i :colour nil :filename bname))
+	  :finally
+	  (return *default-pathname-defaults*))))
+
+(defun display-board (arr cell size &key (size-xy 8))
+  (let* ((board (* size size-xy)) ;; board size in pixels
+	 (barray arr)) 
+    (with-canvas (:width board :height board)
+      (dotimes (i (array-dimension barray 0) nil))
+      )))
+
+
 

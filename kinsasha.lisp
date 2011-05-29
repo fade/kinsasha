@@ -26,8 +26,8 @@
 
 (defun make-serve ()
   (ucw::make-backend
-   ;:iolib
-   :httpd
+   :iolib
+   ;:httpd
    :host "0.0.0.0"
    :port 9999))
 
@@ -53,7 +53,7 @@
 (register-application *ktour-server* *ktour-application*)
 
 (defentry-point "index.ucw" (:application *ktour-application*)
-  ()
+    ()
   (call 'ktour-window))
 
 (defun startup-ktour ()
@@ -75,10 +75,10 @@
   (ucw-core::remove-expired-sessions *ktour-application*)
   (<:H1 "Knight's Tour Solutions Incorporated!")
   (<:pre (format (html-stream (context.response *context*))
-		  (print-board (knights-tour)))))
+		 (print-board (knights-tour)))))
 
 (defentry-point "board.ucw" (:application *ktour-application*)
-  ()
+    ()
   (call 'ktour-display))
 
 (defcomponent ktour-display (standard-window-component)
@@ -116,7 +116,7 @@
 ;;   (let* ((bboard (knights-tour))
 ;; 	 (width (* (array-dimension bboard 1) 100)))
 ;;     (ucw-core::remove-expired-sessions *ktour-application*)
-    
+
 ;;     (<:center
 ;;      (<:table :width width
 ;; 	     (<:td (dotimes (i (array-dimension bboard 0) nil)
