@@ -97,7 +97,7 @@
 
 (defmethod render ((self ktour-component-board))
   (<:H1 "Knight's Tour Solutions Inc.!")
-  (<:H3 "Press 'r' to reload board.")
+  (<:H3 "Press 'ctrl-r' to load a new board.")
   (<:p "a new board will be generated on every reload")
   (let* ((bboard (knights-tour))
 	 (width (* (array-dimension bboard 1) 100)))
