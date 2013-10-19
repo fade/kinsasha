@@ -1,13 +1,13 @@
-;;; "tbuilder" goes here. Hacks and glory await!
-;;;; tbuilder.lisp
-
-(in-package #:tbuilder)
-
 ;;;; -*- Mode: Lisp; Syntax: ANSI-Common-Lisp; Base: 10 -*-
 ;;;; -*- vtest.lisp -*-
 ;;;;
 ;;; this code generates the png tiles used to display numbered
 ;;; chessboard cells for the kinsasha knight's tour solver
+
+;;; "tbuilder" goes here. Hacks and glory await!
+;;;; tbuilder.lisp
+
+(in-package #:tbuilder)
 
 ;;; vecto examples, for my own edification.
 
@@ -96,7 +96,7 @@
       (fill-path)
       (set-font font 40)
       (set-rgb-fill 1.0 1.0 1.0)
-;;;       (draw-centered-string 50 40 (format nil "~A" ch))
+      ;;; magic constants are bad, but in this case, appropriate.
       (let ((xspot (round (/ s 2)))
 	    (yspot (round (* s .4))))
 	(draw-centered-string xspot yspot (format nil "~A" ch)))
