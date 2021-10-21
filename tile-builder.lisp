@@ -7,6 +7,10 @@
 ;;; "tbuilder" goes here. Hacks and glory await!
 ;;;; tbuilder.lisp
 
+(defpackage #:tbuilder
+  (:use #:cl
+        #:vecto))
+
 (in-package #:tbuilder)
 
 ;;; vecto examples, for my own edification.
@@ -92,7 +96,7 @@
       (if coords
 	  (rounded-rectangle (first coords) (second coords)  s s 10 10)
 	  (rounded-rectangle 0 0 s s 10 10))
-      
+
       (fill-path)
       (set-font font 40)
       (set-rgb-fill 1.0 1.0 1.0)
@@ -118,10 +122,7 @@
 
 (defun display-board (arr cell size &key (size-xy 8))
   (let* ((board (* size size-xy)) ;; board size in pixels
-	 (barray arr)) 
+	 (barray arr))
     (with-canvas (:width board :height board)
       (dotimes (i (array-dimension barray 0) nil))
       )))
-
-
-
